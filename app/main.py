@@ -9,6 +9,9 @@ from io import StringIO
 import requests
 from bs4 import BeautifulSoup
 
+from dotenv import load_dotenv
+
+load_dotenv()  # Loads from .env
 # Configurable constants (can be overridden by env)
 RATE_TYPE = os.getenv("RATE_TYPE", "Fixed")
 TERM_LENGTH = int(os.getenv("TERM_LENGTH", 12))
@@ -122,12 +125,13 @@ def send_email(matches):
     if not EMAIL_FROM or not EMAIL_TO or not EMAIL_USER or not EMAIL_PASS:
         print("Email settings not configured, skipping email.")
         return
-
+    print("email!")
+    return
     msg = EmailMessage()
     msg["Subject"] = "⚡ New Cheap Electricity Plans Found"
     msg["From"] = EMAIL_FROM
     msg["To"] = EMAIL_TO
-
+    msg["From"] = f"Frugal Bot <{SMTP_USERNAME}>"
     lines = [
         f"Found {len(matches)} plans cheaper than current setup:",
         ""

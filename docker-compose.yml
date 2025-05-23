@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  electric-alert:
+    build: .
+    env_file:
+      - config.env
+    volumes:
+      - ./data:/app/data
+      - ./config.env:/app/.env
+    # restart: unless-stopped
